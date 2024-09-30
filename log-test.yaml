@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: log-test
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: log-test
+  name: api
+spec:
+  replicas: 1
+  selector:
+      matchLabels:
+        app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+      - name: client
+        image: busybox
+        command:
+        - /bin/sh
+        - "-c"
+        - i=0; while [ $i -le 500 ]; do echo "GET /users/$i"; echo "POST /comments/$i"; echo "DELETE /users/$((i + 50))"; sleep 1; i=$((i + 1)); done
+      - name: server
+        image: busybox
+        command:
+        - /bin/sh
+        - "-c"
+        - i=0; while [ $i -le 500 ]; do echo "[INFO] 192.168.0.$i userId $i checked"; echo "[INFO] userId $i added comment $i"; echo "[WARN] userId $((i + 50)) deleted"; sleep 2; i=$((i + 1)); done
