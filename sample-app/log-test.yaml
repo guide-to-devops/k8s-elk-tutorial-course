@@ -30,4 +30,4 @@ spec:
         command:
         - /bin/sh
         - "-c"
-        - i=0; while [ $i -le 500 ]; do echo "[INFO] 192.168.0.$i userId $i checked"; echo "[INFO] userId $i added comment $i"; echo "[WARN] userId $((i + 50)) deleted"; sleep 2; i=$((i + 1)); done
+        - i=0; while [ $i -le 255 ]; do echo "[INFO] 192.168.0.$i userId $i checked"; echo "[INFO] userId $i added comment $i"; echo "[WARN] userId $((i + 50)) deleted"; sleep 2; i=$((i + 1)); done
